@@ -80,6 +80,7 @@ Power BI Desktop · DAX · Power Query · Azure Data Factory · SQL Server
 
 ## 📸 Aperçu
 ![Dashboard Transactions Clients](screenshots/Transactions_clients.png)
+![Dashboard Produits et Clients](screenshots/Produits_clients.png)
 ![Dashboard Segmentations Clients](screenshots/Segmentations_clients.png)
 ![Dashboard Finance et rentabilite](screenshots/Finance_rentabilite.png)
 ![Dashboard Previsions et risques](screenshots/Previsions_risques.png)
