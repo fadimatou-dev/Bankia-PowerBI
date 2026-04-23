@@ -12,20 +12,33 @@ de A à Z, de l'ingestion des données brutes jusqu'au rapport Power BI final.
 ## 🏗️ Architecture globale
 Fichiers sources (XLS, CSV, TXT)
 ↓
-Data Lake (Azure Blob Storage)
+Data Lake (ADLS Gen2)
 ↓
-ODS (Staging)
+ODS (bankia_ods_db)
 ↓
-Data Warehouse (modèle en étoile)
+Staging (STG_)
 ↓
-Power BI Report
+DWH (bankia_dwh_db) → DIM_ + FACT_*
+↓
+Power BI
+
 ## ⚙️ Phase 1 – Data Engineering
 - Stockage des fichiers sources dans un **Data Lake**
 - Alimentation d'un **Data Warehouse** via un ODS
-- Pipelines **Azure Data Factory** :
-  - `Master_Pipeline_ODS` → chaîne ODS
-  - `Master_Pipeline_DWH` → chaîne DWH
-  - `Master_Pipeline` → ODS + DWH complet
+
+  ### Rôle des couches
+| Couche | Contenu | Utilité |
+|--------|---------|---------|
+| ODS | Tables proches des sources | Centraliser les données nettoyées |
+| STG | Copie locale des lignes détaillées | Préparer les jointures avec les dimensions |
+| DWH | Dimensions + Faits | Modèle décisionnel pour Power BI |
+
+### Pipelines ADF
+| Pipeline | Rôle |
+|----------|------|
+| `Master_Pipeline_ODS` | Charge toutes les tables ODS depuis le Data Lake |
+| `Master_Pipeline_DWH` | Alimente dimensions, staging et faits |
+| `Master_Pipeline` | Orchestre ODS + DWH de bout en bout |
 
 ## 📊 Phase 2 – Rapport Power BI
 
